@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EF.Course.Model\EF.Course.Model.csproj" />
     <ProjectReference Include="..\EF.Course.Orm\EF.Course.Orm.csproj" />
   </ItemGroup>
 

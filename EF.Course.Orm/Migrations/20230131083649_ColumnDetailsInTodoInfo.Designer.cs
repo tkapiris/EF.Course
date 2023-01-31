@@ -4,6 +4,7 @@ using EF.Course.Orm.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF.Course.Orm.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230131083649_ColumnDetailsInTodoInfo")]
+    partial class ColumnDetailsInTodoInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,29 +44,6 @@ namespace EF.Course.Orm.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Todo", (string)null);
-                });
-
-            modelBuilder.Entity("EF.Course.Model.TodoComment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<int>("TodoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TodoId");
-
-                    b.ToTable("TodoComment", (string)null);
                 });
 
             modelBuilder.Entity("EF.Course.Model.TodoInfo", b =>
@@ -95,17 +75,6 @@ namespace EF.Course.Orm.Migrations
                     b.ToTable("TodoInfo", (string)null);
                 });
 
-            modelBuilder.Entity("EF.Course.Model.TodoComment", b =>
-                {
-                    b.HasOne("EF.Course.Model.Todo", "Todo")
-                        .WithMany("TodoComments")
-                        .HasForeignKey("TodoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Todo");
-                });
-
             modelBuilder.Entity("EF.Course.Model.TodoInfo", b =>
                 {
                     b.HasOne("EF.Course.Model.Todo", "Todo")
@@ -119,8 +88,6 @@ namespace EF.Course.Orm.Migrations
 
             modelBuilder.Entity("EF.Course.Model.Todo", b =>
                 {
-                    b.Navigation("TodoComments");
-
                     b.Navigation("TodoInfo")
                         .IsRequired();
                 });

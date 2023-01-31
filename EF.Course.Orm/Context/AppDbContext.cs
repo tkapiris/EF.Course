@@ -8,9 +8,14 @@ namespace EF.Course.Orm.Context
     public class AppDbContext : DbContext
     {
         public DbSet<Todo> Todos { get; set; }
+        public DbSet<TodoInfo> TodoInfos { get; set; }
+        public DbSet<TodoComment> TodoComments { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new TodoConfiguration());
+            modelBuilder.ApplyConfiguration(new TodoInfoConfiguration());
+            modelBuilder.ApplyConfiguration(new TodoCommentConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 
